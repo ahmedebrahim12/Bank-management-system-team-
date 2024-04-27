@@ -441,32 +441,227 @@ void setmassages(massage& m)
 
 bool loginpage(user users[], Sprite background, RenderWindow& windows)
 {
+	string input[2];
+	Text input_text[2];
+	int input_index = 0;
+	for (int i = 0; i < 2; i++)
+	{
+		input_text[i].setPosition(845, 347 + i * 88);
+		input_text[i].setCharacterSize(18);
+		input_text[i].setFont(coolvetica);
+	}
+
+	while (windows.isOpen())
+	{
+		mouesRect.setPosition(ms.getPosition().x - 10, ms.getPosition().y);
+
+		if (mouesRect.getGlobalBounds().intersects(l.button1.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left))
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				if (input[i].empty())
+					input[i] = "0";
+			}
+
+			if (login(users,input[0],input[1],m))
+			{
+				return true;
+			}
+
+			for (int i = 0; i < 2; i++)
+			{
+				input[i].resize(0);
+			}
+		}
+
+		if (mouesRect.getGlobalBounds().intersects(l.button2.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left))
+		{
+			return false;
+		}
+
+		for (int i = 0; i < 2; i++)
+		{
+			input_text[i].setString(input[i]);
+		}
+	}
+
+	Event event;
+	while (windows.pollEvent(event))
+	{
+		if (event.type == Event::Closed)
+		{
+			windows.close();
+		}
 
 
+		if (event.type == Event::TextEntered)
+		{
+			input[input_index] += static_cast<char>(event.text.unicode);
+		}
+	}
 
+	if (event.type == Event::KeyReleased && event.key.code == Keyboard::Enter)
+	{
+		input_index++;
+		input_index %= 2;
+	}
 
-
-
-
-
-
-	return false;
+	if (Keyboard::isKeyPressed(Keyboard::Backspace) && input[input_index].size() > 0)
+	{
+		input[input_index].resize(input[input_index].size() - 1);
+	}
+	if (event.type == Event::KeyReleased && event.key.code == Keyboard::Enter && input_index == 0)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			if (input[i].empty())
+			input[i] = "0";
+		}
+		if (login(users, input[0], input[1], m))
+		{
+			thisuser = indx_or_arr;
+			return true;
+		}
+		for (int i = 0; i < 2; i++)
+		{
+			input[i].resize(0);
+		}
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		input_text[i].setString(input[i]);
+	}
+	windows.clear();
+	windows.draw(background);
+	for (int i = 0; i < 2; i++)
+	{
+		windows.draw(input_text[i]);
+	}
+	windows.display();
 }
 
 bool signinpage(user users[], Sprite background, RenderWindow& windows)
 {
+	string input[5];
+	Text input_text[5];
+	int input_index=0;
+	for (int i = 0; i < 5; i++)
+	{
+		input_text[i].setPosition(845, 234 + i * 82);
+		input_text[i].setCharacterSize(18);
+		input_text[i].setFont(coolvetica);
+	}
 
+	while (windows.isOpen())
+	{
+		mouesRect.setPosition(ms.getPosition().x - 10, ms.getPosition().y);
 
+		if (mouesRect.getGlobalBounds().intersects(s.button1.getGlobalBounds())&& Mouse::isButtonPressed(Mouse::Left))
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				if (input[i].empty())	
+					input[i] = "0";
+			}
 
+			if (signup(users, input[0], input[1], input[2], stof(input[3]), input[4], m))
+			{
+				thisuser = indx_or_arr;
+				return true;
+			}
 
+			for (int i = 0; i < 5; i++)
+			{
+				input[i].resize(0);
+			}
+		}
 
+		if (mouesRect.getGlobalBounds().intersects(s.button2.getGlobalBounds())&& Mouse::isButtonPressed(Mouse::Left))
+		{
+			return false;
+		}
 
+		for (int i = 0; i < 5; i++)
+		{
+			input_text[i].setString(input[i]);
+		}
+	}
 
+	Event event;
+	while (windows.pollEvent(event))
+	{
+		if (event.type == Event::Closed)
+		{
+			windows.close();
+		}
 
+		if (event.type == Event::TextEntered)
+		{
+			if (input_index < 3)
+			{
+				input[input_index] += static_cast<char>(event.text.unicode);
+			}
+			else
+			{
+				if (isdigit(static_cast<char>(event.text.unicode)))
+				{
+					input[input_index] += static_cast<char>(event.text.unicode);
+				}
+			}
+		}
 
+		if (event.type == Event::KeyReleased && event.key.code == Keyboard::Enter)
+		{
+			input_index++;
+			input_index %= 5;
+		}
 
+		if (input_index < 3)
+		{
+			if (Keyboard::isKeyPressed(Keyboard::Backspace)	&& input[input_index].size() > 0)
+			{
+				input[input_index].resize(input[input_index].size() - 1);
+			}
+		}
+		else {
+			if (input[input_index].size() > 0 && event.type == Event::KeyReleased && event.key.code == Keyboard::Backspace)
+			{
+				input[input_index].resize(input[input_index].size() - 1);
+			}
+		}
 
-	return false;
+		if (event.type == Event::KeyReleased && event.key.code == Keyboard::Enter && input_index == 0)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				if (input[i].empty())
+					input[i] = "0";
+			}
+			if (signup(users, input[0], input[1], input[2], stof(input[3]), input[4], m))
+			{
+				thisuser = indx_or_arr;
+				return true;
+			}
+
+			for (int i = 0; i < 5; i++)
+			{
+				input[i].resize(0);
+			}
+		}
+
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		input_text[i].setString(input[i]);
+	}
+	windows.clear();
+	windows.draw(background);
+	for (int i = 0; i < 5; i++)
+	{
+		windows.draw(input_text[i]);
+	}
+
+	windows.display();
 }
 
 bool userpage(user users[], Sprite background, RenderWindow& windows, String& stringinfun)
