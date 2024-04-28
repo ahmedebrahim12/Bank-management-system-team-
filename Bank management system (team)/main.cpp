@@ -318,7 +318,7 @@ void setwithdrawpage(withdraw_page& with, Texture sigintexinfun[])
 
 void setloanpage(loan_page& lo, Texture sigintexinfun[])
 {
-
+	
 
 
 
@@ -526,19 +526,60 @@ bool withdrawpage(user users[], Sprite background, RenderWindow& windows)
 
 bool loanpage(user users[], Sprite background, RenderWindow& windows)
 {
-
-
-
-
-
-
-
-
-
-
-
-
-	return false;
+	
+	string input;
+	Text inputtext;
+	inputtext.setCharacterSize(35);
+	inputtext.setPosition(624.29, 382.88 - 2.2);
+	inputtext.setFont(coolvetica);
+	while (windows.isOpen()) {
+		mouesRect.setPosition(ms.getPosition().x - 10, ms.getPosition().y);
+		inputtext.setString(input);
+		if (mouesRect.getGlobalBounds().intersects(l_p.boutton2.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+			return false;
+		}
+		if (mouesRect.getGlobalBounds().intersects(l_p.boutton1.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+			if (input.empty()) {
+				input = "0";
+			}
+			if (translean(users, stof(input),m)) {
+				return false;
+			}
+			input.resize(0);
+		}
+		Event event;
+		while (windows.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				windows.close();
+			}
+			if (event.type == Event::TextEntered) {
+				if (isdigit(static_cast<char> (event.text.unicode))) {
+					input += static_cast<char> (event.text.unicode);
+				}
+			}
+			if (input.size()>0 &&event.type == Event::KeyReleased && event.key.code == Keyboard::BackSpace) {
+				input.resize(input.size() - 1);
+			}
+			if (event.type == Event::KeyReleased&&event.key.code==Keyboard::Enter) {
+				if (input.empty()) {
+					input = "0";
+				}
+				if (translean(users, stof(input),m )) {
+					return false;
+				}
+				input.resize(0);
+			}
+			
+		}
+		windows.clear();
+		windows.draw(background);
+		drawheader(h, windows);
+		drawloanpage(l_p, windows);
+		windows.draw(inputtext);
+		drawmassage(m, windows);
+		windows.display();
+	}
+	return true;
 }
 
 bool balancepage(user users[], Sprite background, RenderWindow& windows)
@@ -591,21 +632,60 @@ bool detailspage(user users[], Sprite background, RenderWindow& windows, String&
 
 bool namepage(user users[], Sprite background, RenderWindow& windows)
 {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	return false;
+	string input;
+	Text inputtext;
+	inputtext.setCharacterSize(35);
+	inputtext.setPosition(624.29, 382.88 - 2.2);
+	inputtext.setFont(coolvetica);
+	while (windows.isOpen()) {
+		mouesRect.setPosition(ms.getPosition().x - 10, ms.getPosition().y);
+		inputtext.setString(input);
+		if (mouesRect.getGlobalBounds().intersects(en_p.boutton2.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+			return false;
+		}
+		if (mouesRect.getGlobalBounds().intersects(en_p.boutton1.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+			if (input.empty()) {
+				input = "0";
+			}
+			if (upname(users,input)) {
+				return false;
+			}
+			input.resize(0);
+		}
+		Event event;
+		while (windows.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				windows.close();
+			}
+			if (event.type == Event::TextEntered) {
+				
+					input += static_cast<char> (event.text.unicode);
+			}
+			
+			if (input.size() > 0 && event.type == Event::KeyReleased && event.key.code == Keyboard::BackSpace) {
+				input.resize(input.size() - 1);
+			}
+			if (event.type == Event::KeyReleased && event.key.code == Keyboard::Enter) {
+				if (input.empty()) {
+					input = "0";
+				}
+				if (upname(users, input)) {
+					return false;
+				}
+				input.resize(0);
+			}
+			if (event.type == Event::KeyReleased && event.key.code == Keyboard::Space) {
+				input.resize(input.size() - 1);
+			}
+		}
+		windows.clear();
+		windows.draw(background);
+		drawheader(h, windows);
+		drawednamepage(en_p, windows);
+		windows.draw(inputtext);
+		windows.display();
+	}
+	return true;
 }
 
 bool emailpage(user users[], Sprite background, RenderWindow& windows)
@@ -783,10 +863,14 @@ void drawwithdrawpage(withdraw_page& with, RenderWindow& thatwindow)
 
 void drawloanpage(loan_page& lo, RenderWindow& thatwindow)
 {
-
-
-
-
+	thatwindow.draw(lo.loan);
+	thatwindow.draw(lo.loanpage);
+	thatwindow.draw(lo.boutton1);
+	thatwindow.draw(lo.boutton2);
+	thatwindow.draw(lo.masse);
+	thatwindow.draw(lo.textbutton1);
+	thatwindow.draw(lo.textbutton2);
+	thatwindow.draw(lo.value1);
 
 
 }
@@ -835,13 +919,13 @@ void drawdetailspage(details_page& det, RenderWindow& thatwindow)
 
 void drawednamepage(edname_page& edn, RenderWindow& thatwindow)
 {
-
-
-
-
-
-
-
+	thatwindow.draw(edn.name);
+	thatwindow.draw(edn.namepage);
+	thatwindow.draw(edn.boutton1);
+	thatwindow.draw(edn.boutton2);
+	thatwindow.draw(edn.textbutton1);
+	thatwindow.draw(edn.textbutton2);
+	thatwindow.draw(edn.value1);
 }
 
 void drawemailpage(edemail_page& ede, RenderWindow& thatwindow)
