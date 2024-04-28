@@ -372,14 +372,12 @@ void setednamepage(edname_page& edn, Texture sigintexinfun[])
 
 
 
-
-
-
 }
 
 void setedemailpage(edemail_page& ede, Texture sigintexinfun[])
 {
 
+	;
 
 
 
@@ -994,51 +992,140 @@ bool namepage(user users[], Sprite background, RenderWindow& windows)
 
 bool emailpage(user users[], Sprite background, RenderWindow& windows)
 {
+	string input;
+	Text inputetext;
+	inputetext.setPosition(624.29, 382.88 - 2.2);
+	inputetext.setCharacterSize(35);
+	inputetext.setFont(coolvetica);
+	while (windows.isOpen()) {
+
+		mouesRect.setPosition(ms.getPosition().x - 10, ms.getPosition().y);
+		inputetext.setString(input);
+
+		if(mouesRect.getGlobalBounds().intersects(ee_p.boutton1.getGlobalBounds())&&Mouse::isButtonPressed(Mouse::Left)){
+			if (input.empty()) {
+				input = '0';
+			}
+			if (upemail(users, input,m)) {
+				return false;
+			}
+
+			
+			input.resize(0);
+		
+		
+		}
+		if (mouesRect.getGlobalBounds().intersects(ee_p.boutton2.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+		
+			return false;
+		}
+
+        Event event;
+		while (windows.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				windows.close();
+			} if (event.type == Event::TextEntered) {
+				input+= static_cast<char>(event.text.unicode);
+			}
+			if (input.size() > 0 && event.type == Event::KeyReleased && event.key.code == Keyboard::BackSpace) {
+				input.resize(input.size() - 1);
+			}
 
 
+			if (event.type == Event::KeyReleased && event.key.code == Keyboard::Enter) {
+				if (input.empty()) {
+					input = '0';
+				}
+				if (upemail(users, input, m)) {
+					return false;
+				}
+
+					input.resize(0);
+				
+			}
 
 
+		}
+		windows.clear();
+		windows.draw(background);
+		drawheader(h, windows);
+		drawemailpage(ee_p, windows);
+	    windows.draw(inputetext);
+		drawmassage(m, windows);
+		windows.display();
 
+	}
 
+	return true;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	return false;
 }
 
 bool passpage(user users[], Sprite background, RenderWindow& windows)
 {
+	string input;
+		Text inputetext;
+		inputetext.setPosition(624.29, 382.88 - 2.2);
+		inputetext.setCharacterSize(35);
+		inputetext.setFont(coolvetica);
+		
+	while (windows.isOpen()) {
+
+		mouesRect.setPosition(ms.getPosition().x - 10, ms.getPosition().y);
+		inputetext.setString(input);
+		if (mouesRect.getGlobalBounds().intersects(es_p.boutton1.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+			if (input.empty()) {
+				input = '0';
+			}if (uppass(users,input)) {
+				return false;
+			}
+			input.resize(0);
+
+		}
+		if (mouesRect.getGlobalBounds().intersects(es_p.boutton2.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+
+
+			return false;
+		}
+
+		Event event;
+		while (windows.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				windows.close();
+			} if (event.type == Event::TextEntered) {
+				input += static_cast<char>(event.text.unicode);
+			} 
+			if (input.size() > 0 && event.type == Event::KeyReleased && event.key.code == Keyboard::BackSpace) {
+				input.resize(input.size() - 1);
+			}
+
+
+			if (event.type == Event::KeyReleased && event.key.code == Keyboard::Enter) {
+				if (input.empty()) {
+					input = '0';
+				}
+				if (uppass(users,input)) {
+					return false;
+				}
+				
+				input.resize(0);
+			}
 
 
 
+		}
+
+		windows.clear();
+		windows.draw(background);
+		drawheader(h, windows);
+		drawpasspage(es_p, windows);
+		windows.draw(inputetext);
+		drawmassage(m, windows);
+		windows.display();
+
+	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-	return false;
+	return true;
 }
 
 bool phonepage(user users[], Sprite background, RenderWindow& windows)
@@ -1235,9 +1322,13 @@ void drawednamepage(edname_page& edn, RenderWindow& thatwindow)
 void drawemailpage(edemail_page& ede, RenderWindow& thatwindow)
 {
 
-
-
-
+	thatwindow.draw(ede.value1);
+	thatwindow.draw(ede.boutton1); 
+	thatwindow.draw(ede.boutton2);
+	thatwindow.draw(ede.textbutton1);
+	thatwindow.draw(ede.textbutton2);
+	thatwindow.draw(ede.email);
+	thatwindow.draw(ede.emailpage);
 
 
 
@@ -1245,12 +1336,15 @@ void drawemailpage(edemail_page& ede, RenderWindow& thatwindow)
 
 void drawpasspage(edpass_page& edps, RenderWindow& thatwindow)
 {
+	RenderWindow thatwindow(VideoMode(1350, 900), "BANK SERVICES SYSTEM");
 
-
-
-
-
-
+	thatwindow.draw(edps.value1);
+	thatwindow.draw(edps.boutton1);
+	thatwindow.draw(edps.boutton2);
+	thatwindow.draw(edps.textbutton1);
+	thatwindow.draw(edps.textbutton2);
+	thatwindow.draw(edps.pass);
+	thatwindow.draw(edps.passpage);
 
 
 
