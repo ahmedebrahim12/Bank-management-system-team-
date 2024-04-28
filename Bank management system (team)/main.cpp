@@ -489,39 +489,148 @@ bool userpage(user users[], Sprite background, RenderWindow& windows, String& st
 
 bool depositpage(user users[], Sprite background, RenderWindow& windows)
 {
+	string input;
+	Text inputtext;
+	inputtext.setPosition(624.29, 382.88 - 2.2);
+	inputtext.setFont(coolvetica);
+	inputtext.setCharacterSize(35);
 
+	while (windows.isOpen())
+	{
+		mouesRect.setPosition(ms.getPosition().x - 10, ms.getPosition().y);
+		inputtext.setString(input);
+		if (mouesRect.getGlobalBounds().intersects(d_p.boutton1.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left))
+		{
+			if (input.empty())
+			{
+				input = "0";
+			}
+			if (transdeposite(users, stof(input), m))
+			{
+				return false;
+			}
+			input.resize(0);
+		}
+		if (mouesRect.getGlobalBounds().intersects(d_p.boutton2.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left))
+		{
+			return false;
+		}
+		Event event;
+		while (windows.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+			{
+				windows.close();
+			}
+			if (event.type == Event::TextEntered)
+			{
+				if (isdigit(static_cast<char>(event.text.unicode)))
+				{
+					input += static_cast<char>(event.text.unicode);
+				}
+			}
+			if (event.type == Event::KeyReleased && event.key.code == Keyboard::Enter)
+			{
+				if (input.empty())
+				{
+					input = "0";
+				}
+				if (transdeposite(users, stof(input), m))
+				{
+					return false;
+				}
+				input.resize(0);
+			}
+			if (input.size() > 0 && event.type == Event::KeyReleased && event.key.code == Keyboard::BackSpace)
+			{
+				input.resize(input.size() - 1);
+			}
+		}
 
+		windows.clear();
+		windows.draw(background);
+		drawheader(h, windows);
+		drawdepositpage(d_p, windows);
+		windows.draw(inputtext);
+		drawmassage(m, windows);
+		windows.display();
 
+	}
+    return true;
 
-
-
-
-
-
-
-
-
-
-
-
-	return false;
 }
 
 bool withdrawpage(user users[], Sprite background, RenderWindow& windows)
 {
+	string input;
+	Text inputtext;
+	inputtext.setPosition(624.29, 382.88 - 2.2);
+	inputtext.setFont(coolvetica);
+	inputtext.setCharacterSize(35);
+	while (windows.isOpen())
+	{
+		mouesRect.setPosition(ms.getPosition().x - 10, ms.getPosition().y);
+		inputtext.setString(input);
+		if (mouesRect.getGlobalBounds().intersects(d_p.boutton1.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left))
+		{
+			if (input.empty())
+			{
+				input = "0";
+			}
+			if (transwithdraw(users, stof(input), m))
+			{
+				return false;
+			}
+			input.resize(0);
+		}
 
+		if (mouesRect.getGlobalBounds().intersects(d_p.boutton2.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left))
+		{
+			return false;
+		}
+		Event event;
+		while (windows.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+			{
+				windows.close();
+			}
+			if (event.type == Event::TextEntered)
+			{
+				if (isdigit(static_cast<char>(event.text.unicode)))
+				{
+					input += static_cast<char>(event.text.unicode);
+				}
+			}
+			if (event.type == Event::KeyReleased && event.key.code == Keyboard::Enter)
+			{
+				if (input.empty())
+				{
+					input = "0";
+				}
+				if (transwithdraw(users, stof(input), m))
+				{
+					return false;
+				}
+				input.resize(0);
+			}
+			if (input.size() > 0 && event.type == Event::KeyReleased && event.key.code == Keyboard::BackSpace)
+			{
+				input.resize(input.size() - 1);
+			}
+		}
 
+		windows.clear();
+		windows.draw(background);
+		drawheader(h, windows);
+		drawwithdrawpage(w_p, windows);
+		windows.draw(inputtext);
+		drawmassage(m, windows);
+		windows.display();
 
+	}
+    return true;
 
-
-
-
-
-
-
-
-
-	return false;
 }
 
 bool loanpage(user users[], Sprite background, RenderWindow& windows)
@@ -757,27 +866,27 @@ void deawuserpage(user_page& user, RenderWindow& thatwindow)
 
 void drawdepositpage(deposit_page& depo, RenderWindow& thatwindow)
 {
-
-
-
-
-
-
-
-
-
+	thatwindow.draw(depo.boutton1);
+	thatwindow.draw(depo.boutton2);
+	thatwindow.draw(depo.deposit);
+	thatwindow.draw(depo.depositpage);
+	thatwindow.draw(depo.masse);
+	thatwindow.draw(depo.textbutton1);
+	thatwindow.draw(depo.textbutton2);
+	thatwindow.draw(depo.value1);
+	
 }
 
 void drawwithdrawpage(withdraw_page& with, RenderWindow& thatwindow)
 {
-
-
-
-
-
-
-
-
+	thatwindow.draw(with.boutton1);
+	thatwindow.draw(with.boutton2);
+	thatwindow.draw(with.masse);
+	thatwindow.draw(with.textbutton1);
+	thatwindow.draw(with.textbutton2);
+	thatwindow.draw(with.value1);
+	thatwindow.draw(with.withdraw);
+	thatwindow.draw(with.withdrawpage);
 
 }
 
