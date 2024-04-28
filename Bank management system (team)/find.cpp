@@ -37,39 +37,31 @@ bool findpassword(string pass, user users[])
 bool findphone(string pho, user users[])
 {
 
+	for (int i = 0; i < sizeof(users); i++) {
+
+		if (pho == users[i].phone) {
+			return true; // Phone number already exists
+		}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-	return false;
+	}
+		return false;
 }
 
 bool findacc(int acc, user users[])
 {
 
+	for (int i = 0; i < sizeof(users); i++) {
+
+		if (acc == users[i].acountNumber) {
+			otheaccnumber = i;
+			return true; // Other user
+		}
 
 
-
-
-
-
-
-
-
-
-
-
+	}
 
 
 	return false;
@@ -78,17 +70,14 @@ bool findacc(int acc, user users[])
 bool findaccsign(int acc, user users[])
 {
 
+	for (int i = 0; i < indx_or_arr;i++) {
+
+		if (acc == users[i].acountNumber) {
+			return true; 
+		}
 
 
-
-
-
-
-
-
-
-
-
+	}
 
 	return false;
 }
