@@ -888,16 +888,35 @@ bool loanpage(user users[], Sprite background, RenderWindow& windows)
 
 bool balancepage(user users[], Sprite background, RenderWindow& windows)
 {
+	Text inputtext;
+	inputtext.setCharacterSize(94.12);
+	inputtext.setPosition(591.44, 451.16);
+	inputtext.setFont(coolvetica);
+	while (windows.isOpen()) {
+		mouesRect.setPosition(ms.getPosition().x - 10, ms.getPosition().y);
+		inputtext.setString(to_string((int)users[thisuser].ballans));
+		if (mouesRect.getGlobalBounds().intersects(b_p.boutton1.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+			return false;
+		}
+		Event event;
+		while (windows.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				windows.close();
+			}
 
 
+		}
+		windows.clear();
+		windows.draw(background);
+		drawheader(h, windows);
+		drawbalancepage(b_p, windows);
+		windows.draw(inputtext);
+		drawmassage(m, windows);
+		windows.display();
+	}
 
 
-
-
-
-
-
-	return false;
+	return true;
 }
 
 bool sendpage(user users[], Sprite background, RenderWindow& windows)
@@ -1043,6 +1062,150 @@ bool passpage(user users[], Sprite background, RenderWindow& windows)
 
 bool phonepage(user users[], Sprite background, RenderWindow& windows)
 {
+	string input;
+	Text inputtext;
+	inputtext.setCharacterSize(35);
+	inputtext.setPosition(624.29, 382.88 - 2.2);
+	inputtext.setFont(coolvetica);
+	while (windows.isOpen()) {
+		mouesRect.setPosition(ms.getPosition().x - 10, ms.getPosition().y);
+		inputtext.setString(input);
+		if (mouesRect.getGlobalBounds().intersects(ep_p.boutton2.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+			return false;
+		}
+		if (mouesRect.getGlobalBounds().intersects(ep_p.boutton1.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+			if (input.empty()) {
+				input = "0";
+			}
+			if (upphone(users, input)) {
+				return false;
+			}
+			input.resize(0);
+		}
+		Event event;
+		while (windows.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				windows.close();
+			}
+			if (event.type == Event::TextEntered) {
+
+				input += static_cast<char> (event.text.unicode);
+			}
+			else {
+				if (isdigit( static_cast<char> (event.text.unicode))) {
+					input += static_cast<char> (event.text.unicode);
+
+				}
+
+
+			}
+
+			if (input.size() > 0 && event.type == Event::KeyReleased && event.key.code == Keyboard::BackSpace) {
+				input.resize(input.size() - 1);
+			}
+			if (event.type == Event::KeyReleased && event.key.code == Keyboard::Enter) {
+				if (input.empty()) {
+					input = "0";
+				}
+				if (upphone(users, input)) {
+					return false;
+				}
+				input.resize(0);
+			}
+			
+		}
+		windows.clear();
+		windows.draw(background);
+		drawheader(h, windows);
+		drawphonepage(ep_p, windows);
+		windows.draw(inputtext);
+		windows.display();
+	}
+	return true;
+}
+
+bool emailpage(user users[], Sprite background, RenderWindow& windows)
+{
+	string input;
+	Text inputtext;
+	inputtext.setCharacterSize(35);
+	inputtext.setPosition(624.29, 382.88 - 2.2);
+	inputtext.setFont(coolvetica);
+	while (windows.isOpen()) {
+		mouesRect.setPosition(ms.getPosition().x - 10, ms.getPosition().y);
+		inputtext.setString(input);
+		if (mouesRect.getGlobalBounds().intersects(en_p.boutton2.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+			return false;
+		}
+		if (mouesRect.getGlobalBounds().intersects(en_p.boutton1.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left)) {
+			if (input.empty()) {
+				input = "0";
+			}
+			if (upname(users, input)) {
+				return false;
+			}
+			input.resize(0);
+		}
+		Event event;
+		while (windows.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				windows.close();
+			}
+			if (event.type == Event::TextEntered) {
+
+				input += static_cast<char> (event.text.unicode);
+			}
+
+			if (input.size() > 0 && event.type == Event::KeyReleased && event.key.code == Keyboard::BackSpace) {
+				input.resize(input.size() - 1);
+			}
+			if (event.type == Event::KeyReleased && event.key.code == Keyboard::Enter) {
+				if (input.empty()) {
+					input = "0";
+				}
+				if (upname(users, input)) {
+					return false;
+				}
+				input.resize(0);
+			}
+			
+		}
+		windows.clear();
+		windows.draw(background);
+		drawheader(h, windows);
+		drawednamepage(en_p, windows);
+		windows.draw(inputtext);
+		windows.display();
+	}
+	return true;
+}
+
+bool emailpage(user users[], Sprite background, RenderWindow& windows)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1182,16 +1345,11 @@ void drawloanpage(loan_page& lo, RenderWindow& thatwindow)
 void drawbalancepage(balance_page& bl, RenderWindow& thatwindow)
 {
 
-
-
-
-
-
-
-
-
-
-
+	thatwindow.draw(bl.boutton1);
+	thatwindow.draw(bl.balance);
+	thatwindow.draw(bl.balancepage);
+	thatwindow.draw(bl.masse);
+	thatwindow.draw(bl.textbutton1);
 
 
 
