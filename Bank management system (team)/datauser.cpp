@@ -43,9 +43,8 @@ bool login(user users[], string email, string password, massage& m)
 	if (findemail(email,users) && findpassword(password,users)) {
 		return true;
 	}
-	else {
-		m.failer.setString("Invalid Email or Password");
-	}
 
-	return false;
+		m.failer.setString("Invalid Email or Password");
+		return false;
+
 }

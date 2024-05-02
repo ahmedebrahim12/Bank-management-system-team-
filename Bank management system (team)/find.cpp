@@ -3,7 +3,7 @@ int otheaccnumber = -1;
 int thisuser = -1;
 bool findemail(string email, user users[])
 {
-	for (int i = 0; i < sizeof(users); i++)
+	for (int i = 0; i <= indx_or_arr; i++)
 	{
 		if (email == users[i].useraccount.email)
 		{
@@ -26,7 +26,7 @@ bool findemail(string email, user users[])
 
 bool findpassword(string pass, user users[])
 {
-	for (int i = 0; i < sizeof(users); i++)
+	for (int i = 0; i <= indx_or_arr; i++)
 	{
 		if (pass == users[i].useraccount.paseword)
 		{
@@ -50,7 +50,7 @@ bool findpassword(string pass, user users[])
 bool findphone(string pho, user users[])
 {
 
-	for (int i = 0; i < sizeof(users); i++) {
+	for (int i = 0; i <= indx_or_arr; i++) {
 
 		if (pho == users[i].phone) {
 			return true; // Phone number already exists
@@ -66,7 +66,7 @@ bool findphone(string pho, user users[])
 bool findacc(int acc, user users[])
 {
 
-	for (int i = 0; i < sizeof(users); i++) {
+	for (int i = 0; i <= indx_or_arr; i++) {
 
 		if (acc == users[i].acountNumber) {
 			otheaccnumber = i;
@@ -83,7 +83,7 @@ bool findacc(int acc, user users[])
 bool findaccsign(int acc, user users[])
 {
 
-	for (int i = 0; i < indx_or_arr;i++) {
+	for (int i = 0; i <= indx_or_arr;i++) {
 
 		if (acc == users[i].acountNumber) {
 			return true; 

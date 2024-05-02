@@ -18,12 +18,12 @@ bool upname(user users[], string name)
 bool upemail(user users[], string email, massage& m)
 {
 	if(findemail(email,users)){
-		m.failer.setString(" ~This Email already existed ");
+		m.failer.setString(" This Email already existed ");
 	
 		return false;
 	}
-	if (users[thisuser].useraccount.email.find("@user.bank") == string::npos) {
-		m.failer.setString(" ~ Invalid Email ~ ");
+	if (email.find("@user.bank") == string::npos) {
+		m.failer.setString(" Invalid Email ");
 
 		return false;
 	}
