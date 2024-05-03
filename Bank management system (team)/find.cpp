@@ -7,6 +7,7 @@ bool findemail(string email, user users[])
 	{
 		if (email == users[i].useraccount.email)
 		{
+			thisuser = i;
 			return true;
 		}
 	}
@@ -30,7 +31,7 @@ bool findpassword(string pass, user users[])
 	{
 		if (pass == users[i].useraccount.paseword)
 		{
-			thisuser = i;
+			//thisuser = i;
 			return true;
 		}
 	}
@@ -83,7 +84,7 @@ bool findacc(int acc, user users[])
 bool findaccsign(int acc, user users[])
 {
 
-	for (int i = 0; i <= indx_or_arr;i++) {
+	for (int i = 0; i < indx_or_arr;i++) {
 
 		if (acc == users[i].acountNumber) {
 			return true; 
@@ -94,3 +95,16 @@ bool findaccsign(int acc, user users[])
 
 	return false;
 }
+
+//bool findcheckphon(string pho, user users[])
+//{
+//	if (pho[0]=='0'&&pho[1] == '1' && (pho[2]=='0'|| pho[2] == '1'|| pho[2] == '2'))
+//	{
+//		if (pho.size()==11)
+//		{
+//			return true;
+//		}
+//		return false;
+//	}
+//	return false;
+//}

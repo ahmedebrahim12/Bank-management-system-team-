@@ -1,10 +1,19 @@
-141 ahmed ahmed@user.bank  17000 0102858217 200515 3
+141 ahmed ahmed@user.bank  21000 0102858217 200515 5
 no-recipient 8000 deposit
 no-recipient 2000 withdraw
 mohamed 5000 get-trans
-185 mohamed mohamed@user.bank  4000 0105844 1515 3
+ibrahim 2000 get-trans
+ibrahim 2000 get-trans
+185 mohameds mohamed@user.bank  6000 0105844 1515 4
 ahmed 5000 push-trans
 no-recipient 2000 withdraw
 mrawan 2000 get-trans
+no-recipient 2000 deposit
 172 mrawan mrawan@user.bank  5000 0106595 8888 1
 mohamed 2000 push-trans
+138 ibrahim ibrahim@user.bank  5980 54845 1515 4
+ahmed 2000 push-trans
+no-recipient 5000 deposit
+no-recipient 20 withdraw
+ahmed 2000 push-trans
+

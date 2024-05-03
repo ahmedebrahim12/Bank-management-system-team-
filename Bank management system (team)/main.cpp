@@ -244,8 +244,8 @@ int main()
 {
 	user data[200];
 	read(data);
-
 	indx_or_arr--;
+	cout << indx_or_arr <<"number" << endl;
 
 
 
@@ -1498,6 +1498,7 @@ bool signinpage(user users[], Sprite background, RenderWindow& windows)
 				}
 				if (signup(users, input[0], input[1], input[2], stof(input[3]), input[4], m))
 				{
+					cout << "after con"<<endl;
 					thisuser = indx_or_arr;
 					return true;
 				}
@@ -1882,13 +1883,13 @@ bool sendpage(user users[], Sprite background, RenderWindow& windows)
 		}
 		if (mouesRect.getGlobalBounds().intersects(s_p.boutton1.getGlobalBounds()) && Mouse::isButtonPressed(Mouse::Left))
 		{
-			if (input[0].empty())
-			{
-				input[0] = "141";
+			for (int i = 0; i < 2; i++) {
+				if (input[i].empty())
+				{
+					input[i] = "0";
+				}
 			}
-			if (input[1].empty()) {
-				input[1] = "99999999999999999999999";
-			}
+
 			//input[0].resize(input[0].size() - 1);
 			cout << input[0] << endl;
 			cout << input[1] << endl;
@@ -2115,6 +2116,7 @@ bool namepage(user users[], Sprite background, RenderWindow& windows)
 				if (input.empty()) {
 					input = "0";
 				}
+				input.resize(input.size() - 1);
 				if (upname(users, input)) {
 					return false;
 				}
@@ -2328,7 +2330,6 @@ bool phonepage(user users[], Sprite background, RenderWindow& windows)
 				if (input.empty()) {
 					input = "0";
 				}
-				input.resize(input.size() - 1);
 
 				if (upphone(users, input)) {
 					return false;
@@ -2362,7 +2363,7 @@ bool transpage(user users[], Sprite background, RenderWindow& windows)
 	Text amount[5];
 	for (int i = 0; i < 5; i++)
 	{
-		recpient[i].setPosition(72.04, 221.27 + i * 120);
+		recpient[i].setPosition(72.04, 234 + i * 108);
 		recpient[i].setFont(coolvetica);
 		recpient[i].setCharacterSize(56);
 		//////////////////////////////////////////////////

@@ -10,6 +10,7 @@ bool signup(user users[], string name, string email, string password, float ball
 		if (!(findemail(email, users))) {
 			if (!(ballans<300)) {
 				if (!(findphone(phone, users))) {
+					cout << "after all cond" << endl;
 					indx_or_arr++;
 					users[indx_or_arr].useraccount.username = name;
 					users[indx_or_arr].useraccount.paseword =password;
@@ -17,6 +18,7 @@ bool signup(user users[], string name, string email, string password, float ball
 					users[indx_or_arr].ballans = ballans;
 					users[indx_or_arr].phone = phone;
 					users[indx_or_arr].acountNumber = (rand() % 101) + 100;
+					cout << "bfor wih rand" << endl;
 					while (findaccsign(users[indx_or_arr].acountNumber, users)) {
 						users[indx_or_arr].acountNumber = (rand() % 101) + 100;
 					}
